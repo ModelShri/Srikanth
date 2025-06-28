@@ -25,7 +25,7 @@ const Hero = () => {
           </p>
         </div>
       </div>
-      <ComputersCanvas />
+      {/* <ComputersCanvas /> */}
 
       <div
         className="absolute xs:bottom-0
