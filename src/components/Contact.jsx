@@ -12,6 +12,7 @@ const Contact = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     message: "",
   });
   const [loading, setLoading] = useState(false);
@@ -28,9 +29,58 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
+  const formatDate = (date) => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+    
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const formattedHours = String(hours).padStart(2, '0');
+    
+    return `${day} ${month} ${year} ${formattedHours}:${minutes} ${ampm}`;
+  };
+
+  const getBrowserInfo = () => {
+    const ua = navigator.userAgent;
+    let tem;
+    let M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if (/trident/i.test(M[1])) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      return `IE ${tem[1] || ""}`;
+    }
+    if (M[1] === "Chrome") {
+      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      if (tem != null) return tem.slice(1).join(" ").replace("OPR", "Opera");
+    }
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, "-?"];
+    if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+    return M.join(" ");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // 1. Fetch geo country info
+    let country = "India";
+    try {
+      const geoRes = await fetch("https://ipapi.co/json/");
+      const geoData = await geoRes.json();
+      if (geoData && geoData.country_name) {
+        country = geoData.country_name;
+      }
+    } catch (err) {
+      console.warn("Could not fetch country location info:", err);
+    }
+
+    const browser = getBrowserInfo();
+    const formattedDate = formatDate(new Date());
+    const pageUrl = window.location.href;
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -41,10 +91,16 @@ const Contact = () => {
         },
         body: JSON.stringify({
           access_key: "ba575796-7301-4b23-8012-a6b24e921f58",
-          name: form.name,
-          email: form.email,
-          message: form.message,
-          subject: `Portfolio Contact Form Submission from ${form.name}`,
+          subject: `👤 New Lead: ${form.name}`,
+          // Pass custom keys directly for beautiful Web3Forms email body rendering
+          "👤 Name": form.name,
+          "📧 Email": form.email,
+          "📱 Phone": form.phone || "Not Provided",
+          "💬 Message": form.message,
+          "🕒 Date": formattedDate,
+          "🌍 Country": country,
+          "💻 Browser": browser,
+          "URL": pageUrl,
         }),
       });
 
@@ -56,6 +112,7 @@ const Contact = () => {
         setForm({
           name: "",
           email: "",
+          phone: "",
           message: "",
         });
       } else {
@@ -75,7 +132,7 @@ const Contact = () => {
         className="flex-[0.85] bg-black-100 p-8 rounded-3xl border border-white/10 shadow-2xl"
       >
         <p className={styles.sectionSubText}>Get In Touch</p>
-        <h3 className="text-white font-black md:text-[45px] sm:text-[38px] xs:text-[32px] text-[26px]">
+        <h3 className="text-white font-black md:text-[38px] sm:text-[32px] xs:text-[28px] text-[24px]">
           Contact Srikanth.
         </h3>
 
@@ -153,6 +210,18 @@ const Contact = () => {
               onChange={handleChange}
               placeholder="What's your email address?"
               required
+              className="bg-tertiary py-3.5 px-5 placeholder:text-secondary text-white rounded-xl border border-white/10 focus:border-[#00d8ff] outline-none font-medium text-sm transition-colors"
+            />
+          </label>
+
+          <label className="flex flex-col">
+            <span className="text-white font-medium mb-2 text-sm">Your Phone Number</span>
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="What's your phone / mobile number?"
               className="bg-tertiary py-3.5 px-5 placeholder:text-secondary text-white rounded-xl border border-white/10 focus:border-[#00d8ff] outline-none font-medium text-sm transition-colors"
             />
           </label>
