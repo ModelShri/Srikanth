@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState, Component } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 class ComputersErrorBoundary extends Component {
@@ -90,13 +90,9 @@ const ComputersCanvas = () => {
           />
           <Computers isMobile={isMobile} />
         </Suspense>
-
-        <Preload all />
       </Canvas>
     </ComputersErrorBoundary>
   );
 };
-
-useGLTF.preload("/desktop_pc/scene.gltf");
 
 export default ComputersCanvas;
