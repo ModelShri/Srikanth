@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 
 import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
@@ -29,40 +28,44 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    emailjs
-      .send(
-        "service_2273tmo",
-        "template_ahmtnab",
-        {
-          from_name: form.name,
-          to_name: personalInfo.name,
-          to_email: personalInfo.email,
-          message: form.message,
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "ba575796-7301-4b23-8012-a6b24e921f58",
+          name: form.name,
           email: form.email,
-        },
-        "FY0C989bKU5ivpht0"
-      )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you! Your message has been sent successfully. Srikanth will get back to you shortly.");
+          message: form.message,
+          subject: `Portfolio Contact Form Submission from ${form.name}`,
+        }),
+      });
 
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-          alert("Something went wrong. You can email Srikanth directly at kumarsrikanth050595@gmail.com");
-        }
-      );
+      const data = await response.json();
+
+      if (data.success) {
+        setLoading(false);
+        alert("Thank you! Your message has been sent successfully. Srikanth will get back to you shortly.");
+        setForm({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        throw new Error(data.message || "Failed to submit form");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Form Submission Error:", error);
+      alert("Something went wrong. You can email Srikanth directly at kumarsrikanth050595@gmail.com");
+    }
   };
 
   return (
@@ -72,7 +75,9 @@ const Contact = () => {
         className="flex-[0.85] bg-black-100 p-8 rounded-3xl border border-white/10 shadow-2xl"
       >
         <p className={styles.sectionSubText}>Get In Touch</p>
-        <h3 className={styles.sectionHeadText}>Contact Srikanth.</h3>
+        <h3 className="text-white font-black md:text-[45px] sm:text-[38px] xs:text-[32px] text-[26px]">
+          Contact Srikanth.
+        </h3>
 
         {/* Quick Contact Info Badges */}
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
