@@ -22,8 +22,8 @@ const Computers = ({ isMobile }) => {
       />
       <primitive
         object={computer.scene}
-        scale={isMobile ? 0.6 : 0.75}
-        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
+        scale={isMobile ? 0.5 : 0.75}
+        position={isMobile ? [0, -1.2, -0.5] : [0, -1.5, -0.5]}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -57,9 +57,6 @@ const ComputersCanvas = () => {
       gl={{ preserveDrawingBuffer: true, antialias: true }}
       className="w-full h-full"
     >
-      {/* Explicitly set Three.js background color to prevent WebGL white clear buffer */}
-      <color attach="background" args={["#050816"]} />
-
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enableZoom={false}
