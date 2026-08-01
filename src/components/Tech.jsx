@@ -1,10 +1,32 @@
 import React from "react";
-import { BallCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 import { styles } from "../styles";
 import { motion } from "framer-motion";
 import { textVariant, fadeIn } from "../utils/motion";
+import { Tilt } from "react-tilt";
+
+const TechCard = ({ index, name, icon }) => {
+  return (
+    <Tilt className="w-28 h-28" options={{ max: 35, scale: 1.05, speed: 400 }}>
+      <motion.div
+        variants={fadeIn("up", "spring", index * 0.05, 0.5)}
+        className="w-full h-full bg-tertiary/60 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center p-3 border border-white/10 hover:border-[#00d8ff]/50 shadow-lg cursor-pointer transition-all duration-300 group"
+      >
+        <div className="w-14 h-14 relative flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <img
+            src={icon}
+            alt={name}
+            className="w-full h-full object-contain"
+          />
+        </div>
+        <span className="text-[10px] font-bold text-secondary mt-2 group-hover:text-white transition-colors text-center truncate w-full">
+          {name}
+        </span>
+      </motion.div>
+    </Tilt>
+  );
+};
 
 const Tech = () => {
   return (
@@ -25,20 +47,15 @@ const Tech = () => {
         Interactive 3D representation of my core technical stack spanning Full Stack .NET, React.js, Node.js, MS SQL Server, Cloud Deployment, and AI-powered productivity tools.
       </motion.p>
 
-      {/* 3D Floating Ball Spheres */}
-      <div className="flex flex-row flex-wrap justify-center gap-10 max-w-6xl mx-auto">
-        {technologies.map((technology) => (
-          <div
-            className="w-28 h-28 flex flex-col items-center justify-center group"
+      {/* Sleek Interactive 3D Tilt Skill Cards */}
+      <div className="flex flex-row flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+        {technologies.map((technology, index) => (
+          <TechCard
             key={technology.name}
-          >
-            <div className="w-24 h-24 relative">
-              <BallCanvas icon={technology.icon} />
-            </div>
-            <span className="text-xs font-semibold text-white mt-1 group-hover:text-[#00d8ff] transition-colors text-center">
-              {technology.name}
-            </span>
-          </div>
+            index={index}
+            name={technology.name}
+            icon={technology.icon}
+          />
         ))}
       </div>
 
