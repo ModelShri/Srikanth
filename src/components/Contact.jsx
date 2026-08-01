@@ -17,6 +17,12 @@ const Contact = () => {
   });
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState("");
+  const [popup, setPopup] = useState({
+    show: false,
+    status: "success",
+    title: "",
+    message: "",
+  });
 
   const handleCopy = (text, type) => {
     navigator.clipboard.writeText(text);
@@ -66,7 +72,6 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    // 1. Fetch geo country info
     let country = "India";
     try {
       const geoRes = await fetch("https://ipapi.co/json/");
@@ -82,6 +87,16 @@ const Contact = () => {
     const formattedDate = formatDate(new Date());
     const pageUrl = window.location.href;
 
+    // Build the exact multiline formatted email body string requested by the user
+    const formattedMessage = `👤 Name      : ${form.name}
+📧 Email     : ${form.email}
+📱 Phone     : ${form.phone || "Not Provided"}
+💬 Message   : ${form.message}
+🕒 Date      : ${formattedDate}
+🌍 Country   : ${country}
+💻 Browser   : ${browser}
+URL : ${pageUrl}`;
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -91,16 +106,11 @@ const Contact = () => {
         },
         body: JSON.stringify({
           access_key: "ba575796-7301-4b23-8012-a6b24e921f58",
-          subject: `👤 New Lead: ${form.name}`,
-          // Pass custom keys directly for beautiful Web3Forms email body rendering
-          "👤 Name": form.name,
-          "📧 Email": form.email,
-          "📱 Phone": form.phone || "Not Provided",
-          "💬 Message": form.message,
-          "🕒 Date": formattedDate,
-          "🌍 Country": country,
-          "💻 Browser": browser,
-          "URL": pageUrl,
+          subject: `👤 New Portfolio Lead: ${form.name}`,
+          name: form.name,
+          email: form.email,
+          phone: form.phone || "Not Provided",
+          message: formattedMessage, // Pass the formatted email body inside Web3Forms message parameter
         }),
       });
 
@@ -108,7 +118,12 @@ const Contact = () => {
 
       if (data.success) {
         setLoading(false);
-        alert("Thank you! Your message has been sent successfully. Srikanth will get back to you shortly.");
+        setPopup({
+          show: true,
+          status: "success",
+          title: "Message Sent!",
+          message: "Thank you! Your message has been sent successfully. Srikanth will get back to you shortly.",
+        });
         setForm({
           name: "",
           email: "",
@@ -121,7 +136,12 @@ const Contact = () => {
     } catch (error) {
       setLoading(false);
       console.error("Form Submission Error:", error);
-      alert("Something went wrong. You can email Srikanth directly at kumarsrikanth050595@gmail.com");
+      setPopup({
+        show: true,
+        status: "error",
+        title: "Submission Error",
+        message: "Something went wrong. Please try again or email Srikanth directly at kumarsrikanth050595@gmail.com.",
+      });
     }
   };
 
@@ -256,6 +276,37 @@ const Contact = () => {
       >
         <EarthCanvas />
       </motion.div>
+
+      {/* Custom Popup Modal Dialog instead of alert() */}
+      {popup.show && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-tertiary border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl relative"
+          >
+            <div className="flex flex-col items-center text-center">
+              {popup.status === "success" ? (
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl mb-4 font-bold">
+                  ✓
+                </div>
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-3xl mb-4 font-bold">
+                  ✕
+                </div>
+              )}
+              <h4 className="text-white text-lg font-bold">{popup.title}</h4>
+              <p className="text-secondary text-sm mt-2 leading-relaxed">{popup.message}</p>
+              <button
+                onClick={() => setPopup({ ...popup, show: false })}
+                className="mt-6 bg-gradient-to-r from-[#915eff] to-[#00d8ff] text-white font-bold py-2.5 px-6 rounded-xl hover:scale-105 transition-all w-full"
+              >
+                Dismiss
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
