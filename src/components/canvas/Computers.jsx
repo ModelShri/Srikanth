@@ -4,7 +4,7 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
-  const computer = useGLTF("./desktop_pc/scene.gltf");
+  const computer = useGLTF("/desktop_pc/scene.gltf");
 
   return (
     <mesh>
@@ -23,7 +23,7 @@ const Computers = ({ isMobile }) => {
       <primitive
         object={computer.scene}
         scale={isMobile ? 0.6 : 0.75}
-        position={isMobile ? [0, -2.2, -1.0] : [0, -2.5, -1.2]}
+        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -55,8 +55,11 @@ const ComputersCanvas = () => {
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true, antialias: true }}
-      className="w-full h-full bg-[#050816]"
+      className="w-full h-full"
     >
+      {/* Explicitly set Three.js background color to prevent WebGL white clear buffer */}
+      <color attach="background" args={["#050816"]} />
+
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enableZoom={false}
@@ -70,5 +73,7 @@ const ComputersCanvas = () => {
     </Canvas>
   );
 };
+
+useGLTF.preload("/desktop_pc/scene.gltf");
 
 export default ComputersCanvas;
