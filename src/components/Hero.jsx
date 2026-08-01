@@ -5,13 +5,7 @@ import { personalInfo } from "../constants";
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen mx-auto bg-[#050816] overflow-hidden">
-      {/* 3D Computer Canvas - full screen background */}
-      <div className="absolute inset-0 z-0 w-full h-full">
-        <ComputersCanvas />
-      </div>
-
-      {/* Text content overlay */}
+    <section className="relative w-full h-screen mx-auto">
       <div
         className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5 z-10 pointer-events-none`}
       >
@@ -62,8 +56,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 w-full flex justify-center items-center z-10">
+      <ComputersCanvas />
+
+      <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center z-10">
         <a href="#about" aria-label="Scroll to About section">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <motion.div
