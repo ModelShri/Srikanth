@@ -3,8 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
+// Preload the model at the correct public path (no base prefix)
+useGLTF.preload("/desktop_pc/scene.gltf");
+
 const Computers = ({ isMobile }) => {
-  const computer = useGLTF("./public/desktop_pc/scene.gltf");
+  const computer = useGLTF("/desktop_pc/scene.gltf");
 
   return (
     <mesh>

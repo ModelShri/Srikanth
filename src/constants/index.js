@@ -30,6 +30,9 @@ import {
   aitools,
   crystalreports,
   WOQEMLOGO,
+  callaudit,
+  radiology,
+  reactportals,
 } from "../assets";
 
 export const navLinks = [
@@ -244,7 +247,7 @@ const projects = [
       { name: "Audio Streaming", color: "pink-text-gradient" },
       { name: "Vercel", color: "blue-text-gradient" },
     ],
-    image: tripguide,
+    image: callaudit,
     source_code_link: "https://modelshri.github.io/Srikanth",
   },
   {
@@ -257,7 +260,7 @@ const projects = [
       { name: "ASP.NET Web API", color: "orange-text-gradient" },
       { name: "Tailwind CSS", color: "pink-text-gradient" },
     ],
-    image: portfoli,
+    image: reactportals,
     source_code_link: "https://modelshri.github.io/Srikanth",
   },
   {
@@ -270,7 +273,7 @@ const projects = [
       { name: "SQL Stored Procedures", color: "green-text-gradient" },
       { name: "React.js", color: "blue-text-gradient" },
     ],
-    image: sigmasrn,
+    image: radiology,
     source_code_link: "https://modelshri.github.io/Srikanth",
   },
   {

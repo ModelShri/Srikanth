@@ -22,7 +22,7 @@ import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/Threejs.png";
 
-// Custom Tech icons mapped cleanly
+// Custom Tech icons
 import csharp from "./tech/csharp.svg";
 import dotnetcore from "./tech/dotnetcore.svg";
 import sqlserver from "./tech/sqlserver.svg";
@@ -30,15 +30,19 @@ import azure from "./tech/azure.svg";
 import aitools from "./tech/ai.png";
 import crystalreports from "./tech/crystal_report.png";
 
-import WOQEMLOGO from "./company/WOQEMLOGO.png";  
+// Company logos
+import WOQEMLOGO from "./company/WOQEMLOGO.png";
 import sigmainfi from "./company/sigmainfi.png";
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
 
-// Project imports
+// Project screenshots
 import sigmasrn from "./sigmasrn.png";
 import portfoli from "./portfoli.png";
 import tripguide from "./tripguide.png";
+import callaudit from "./callaudit.png";
+import radiology from "./radiology.png";
+import reactportals from "./reactportals.png";
 
 export {
   logo,
@@ -74,7 +78,11 @@ export {
   WOQEMLOGO,
   sigmainfi,
   shopify,
+  // Project screenshots
   sigmasrn,
   portfoli,
   tripguide,
+  callaudit,
+  radiology,
+  reactportals,
 };
