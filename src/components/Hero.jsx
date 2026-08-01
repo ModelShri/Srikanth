@@ -1,50 +1,50 @@
 import { motion } from "framer-motion";
 import { styles } from "../styles";
+import { ComputersCanvas } from "./canvas";
 import { personalInfo } from "../constants";
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen mx-auto flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative w-full h-screen mx-auto">
       <div
-        className={`${styles.paddingX} max-w-7xl mx-auto flex flex-row items-start gap-5 z-10 w-full pt-[80px]`}
+        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5 z-10 pointer-events-none`}
       >
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#915eff]" />
           <div className="w-1 sm:h-80 h-40 violet-gradient" />
         </div>
 
-        <div>
+        <div className="pointer-events-auto">
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className="text-[#915eff]">{personalInfo.name}</span>
           </h1>
 
-          <p className={`${styles.heroSubText} mt-2 text-white-100 max-w-2xl`}>
-            Senior <span className="text-[#00d8ff] font-bold">Full Stack .NET Developer</span> &{" "}
-            <span className="text-[#915eff] font-bold">React Specialist</span> with 6+ years experience.
+          <p className={`${styles.heroSubText} mt-2 text-white-100 max-w-xl`}>
+            Senior <span className="text-[#00d8ff] font-bold">Full Stack .NET Developer</span> & <span className="text-[#915eff] font-bold">React Specialist</span> with 6+ years experience.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-xs sm:text-sm font-medium">
-            <span className="bg-tertiary/90 border border-white/10 px-4 py-2 rounded-xl text-white shadow-lg backdrop-blur-md">
-              💼 6+ Yrs Exp
+          <div className="mt-4 flex flex-wrap gap-2 text-xs sm:text-sm font-medium">
+            <span className="bg-tertiary border border-white/10 px-3 py-1.5 rounded-lg text-white">
+              6+ Yrs Exp
             </span>
-            <span className="bg-tertiary/90 border border-white/10 px-4 py-2 rounded-xl text-white shadow-lg backdrop-blur-md">
-              🏥 10+ Modules HMIS
+            <span className="bg-tertiary border border-white/10 px-3 py-1.5 rounded-lg text-white">
+              10+ Modules HMIS
             </span>
-            <span className="bg-emerald-950/80 border border-emerald-500/50 px-4 py-2 rounded-xl text-emerald-400 shadow-lg backdrop-blur-md">
-              ⚡ ASP.NET Core + React + SQL
+            <span className="bg-emerald-950/80 border border-emerald-500/50 px-3 py-1.5 rounded-lg text-emerald-400">
+              ASP.NET Core + React + SQL
             </span>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-4">
             <a
               href="#projects"
-              className="bg-gradient-to-r from-[#915eff] to-[#00d8ff] text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-[#915eff]/30 hover:scale-105 transition-all text-sm sm:text-base"
+              className="bg-gradient-to-r from-[#915eff] to-[#00d8ff] text-white font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-[#915eff]/30 hover:scale-105 transition-all text-xs sm:text-sm"
             >
               🚀 Major Projects
             </a>
             <a
               href="#contact"
-              className="bg-tertiary border border-white/20 hover:border-[#00d8ff] text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition-all text-sm sm:text-base"
+              className="bg-tertiary border border-white/20 hover:border-[#00d8ff] text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-white/10 transition-all text-xs sm:text-sm"
             >
               ✉️ Contact Srikanth
             </a>
@@ -52,7 +52,9 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-10 w-full flex justify-center items-center z-10">
+      <ComputersCanvas />
+
+      <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center z-10">
         <a href="#about" aria-label="Scroll to About section">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <motion.div
