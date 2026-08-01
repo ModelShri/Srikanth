@@ -5,34 +5,22 @@ import { personalInfo } from "../constants";
 
 const Hero = () => {
   return (
-    <section
-      style={{ backgroundColor: "#050816", position: "relative", width: "100%", height: "100vh", overflow: "hidden" }}
-    >
-      {/* 3D Computer Canvas — full section background, rendered first (z-index 0) */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: 0,
-        }}
-      >
+    <section className="relative w-full h-screen mx-auto bg-[#050816] overflow-hidden">
+      {/* 3D Computer Canvas - full screen background */}
+      <div className="absolute inset-0 z-0 w-full h-full">
         <ComputersCanvas />
       </div>
 
-      {/* Text overlay — above canvas (z-index 10) */}
+      {/* Text content overlay */}
       <div
-        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}
-        style={{ zIndex: 10, pointerEvents: "none" }}
+        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5 z-10 pointer-events-none`}
       >
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#915eff]" />
           <div className="w-1 sm:h-80 h-40 violet-gradient" />
         </div>
 
-        <div style={{ pointerEvents: "auto" }}>
+        <div className="pointer-events-auto">
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className="text-[#915eff]">{personalInfo.name}</span>
           </h1>
@@ -52,10 +40,7 @@ const Hero = () => {
             <span className="bg-tertiary border border-white/10 px-3 py-1.5 rounded-lg text-white">
               10+ Modules HMIS
             </span>
-            <span
-              className="px-3 py-1.5 rounded-lg"
-              style={{ background: "#0f2e1f", border: "1px solid #34d399", color: "#34d399" }}
-            >
+            <span className="bg-emerald-950/80 border border-emerald-500/50 px-3 py-1.5 rounded-lg text-emerald-400">
               ASP.NET Core + React + SQL
             </span>
           </div>
@@ -63,18 +48,13 @@ const Hero = () => {
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <a
               href="#projects"
-              className="text-white font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm"
-              style={{
-                background: "linear-gradient(135deg, #915eff, #00d8ff)",
-                boxShadow: "0 4px 20px rgba(145,94,255,0.4)",
-              }}
+              className="bg-gradient-to-r from-[#915eff] to-[#00d8ff] text-white font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-[#915eff]/30 hover:scale-105 transition-all text-xs sm:text-sm"
             >
               🚀 Major Projects
             </a>
             <a
               href="#contact"
-              className="text-white font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm"
-              style={{ background: "#151030", border: "1px solid rgba(255,255,255,0.2)" }}
+              className="bg-tertiary border border-white/20 hover:border-[#00d8ff] text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-white/10 transition-all text-xs sm:text-sm"
             >
               ✉️ Contact Srikanth
             </a>
@@ -83,20 +63,13 @@ const Hero = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className="absolute bottom-10 w-full flex justify-center items-center"
-        style={{ zIndex: 10 }}
-      >
-        <a href="#about" aria-label="Scroll down">
-          <div
-            className="w-[35px] h-[64px] rounded-3xl flex justify-center items-start p-2"
-            style={{ border: "4px solid #aaa6c3" }}
-          >
+      <div className="absolute bottom-10 w-full flex justify-center items-center z-10">
+        <a href="#about" aria-label="Scroll to About section">
+          <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <motion.div
               animate={{ y: [0, 24, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: "#aaa6c3" }}
+              className="w-3 h-3 rounded-full bg-secondary"
             />
           </div>
         </a>
