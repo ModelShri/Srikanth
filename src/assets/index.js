@@ -20,7 +20,15 @@ import reactjs from "./tech/reactjs.png";
 import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
-import threejs from "./tech/threejs.svg";
+import threejs from "./tech/Threejs.png";
+
+// Custom Tech icons mapped cleanly
+import csharp from "./tech/csharp.svg";
+import dotnetcore from "./tech/dotnetcore.svg";
+import sqlserver from "./tech/sqlserver.svg";
+import azure from "./tech/azure.svg";
+import aitools from "./tech/ai.png";
+import crystalreports from "./tech/crystal_report.png";
 
 import WOQEMLOGO from "./company/WOQEMLOGO.png";  
 import sigmainfi from "./company/sigmainfi.png";
@@ -55,9 +63,15 @@ export {
   typescript,
   threejs,
   aspdotneticon,
+  csharp,
+  dotnetcore,
+  sqlserver,
+  azure,
+  aitools,
+  crystalreports,
   // Company exports
   meta,
-  WOQEMLOGO,  // Add this export
+  WOQEMLOGO,
   sigmainfi,
   shopify,
   sigmasrn,

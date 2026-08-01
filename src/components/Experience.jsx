@@ -18,35 +18,46 @@ const ExperienceCard = ({ experience }) => {
       contentStyle={{
         background: "#1d1836",
         color: "#fff",
+        boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.7)",
+        border: "1px solid rgba(255, 255, 255, 0.1)",
+        borderRadius: "16px",
       }}
-      contentArrowStyle={{ borderRight: "7px solid  #232631" }}
+      contentArrowStyle={{ borderRight: "7px solid #1d1836" }}
       date={experience.date}
+      dateClassName="text-[#00d8ff] font-semibold text-sm"
       iconStyle={{ background: experience.iconBg }}
       icon={
-        <div className="flex justify-center items-center w-full h-full">
+        <div className="flex justify-center items-center w-full h-full p-2">
           <img
             src={experience.icon}
             alt={experience.company_name}
-            className="w-[60%] h-[60%] object-contain"
+            className="w-[80%] h-[80%] object-contain"
           />
         </div>
       }
     >
       <div>
-        <h3 className="text-white text-[24px] font-bold">{experience.title}</h3>
+        <div className="flex flex-wrap justify-between items-center gap-2">
+          <h3 className="text-white text-[22px] font-bold tracking-wide">
+            {experience.title}
+          </h3>
+          <span className="bg-[#915eff]/20 border border-[#915eff]/40 text-[#915eff] text-xs font-semibold px-3 py-1 rounded-full">
+            {experience.location}
+          </span>
+        </div>
         <p
-          className="text-secondary text-[16px] font-semibold"
+          className="text-[#00d8ff] text-[16px] font-semibold mt-1"
           style={{ margin: 0 }}
         >
           {experience.company_name}
         </p>
       </div>
 
-      <ul className="mt-5 list-disc ml-5 space-y-2">
+      <ul className="mt-5 list-disc ml-5 space-y-2.5">
         {experience.points.map((point, index) => (
           <li
             key={`experience-point-${index}`}
-            className="text-white-100 text-[14px] pl-1 tracking-wider"
+            className="text-slate-300 text-[14px] pl-1 leading-relaxed"
           >
             {point}
           </li>
@@ -61,15 +72,15 @@ const Experience = () => {
     <>
       <motion.div variants={textVariant()}>
         <p className={`${styles.sectionSubText} text-center`}>
-          What I have done so far
+          Career Progression & Track Record
         </p>
         <h2 className={`${styles.sectionHeadText} text-center`}>
           Work Experience.
         </h2>
       </motion.div>
 
-      <div className="mt-20 flex flex-col">
-        <VerticalTimeline>
+      <div className="mt-16 flex flex-col max-w-6xl mx-auto">
+        <VerticalTimeline lineColor="#915eff">
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={`experience-${index}`}

@@ -5,9 +5,9 @@ import About from './About';
 import Tech from './Tech';
 import Experience from './Experience';
 import Works from './Works';
+import EducationAndAchievements from './EducationAndAchievements';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
-
 
 export {
   Hero,
@@ -16,10 +16,11 @@ export {
   Tech,
   Experience,
   Works,
+  EducationAndAchievements,
   Feedbacks,
   Contact,
   EarthCanvas, 
   BallCanvas, 
   ComputersCanvas, 
   StarsCanvas
-}
+};

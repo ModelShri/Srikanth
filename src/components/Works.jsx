@@ -1,3 +1,4 @@
+import React from "react";
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 
@@ -13,49 +14,63 @@ const ProjectCard = ({
   description,
   tags,
   image,
-  source_code_Link,
+  source_code_link,
 }) => {
   return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
+    <motion.div variants={fadeIn("up", "spring", index * 0.25, 0.75)}>
       <Tilt
         options={{
-          max: 45,
-          scale: 1.1,
-          speed: 300,
+          max: 35,
+          scale: 1.02,
+          speed: 400,
           transition: true,
           perspective: 1000,
-          reset: true,
         }}
-        className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full "
+        className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full border border-white/10 shadow-2xl flex flex-col justify-between h-full group"
       >
-        <div className="relative w-full h-[230px]">
-          <img
-            src={image}
-            alt="name"
-            className="w-full h-full object-cover rounded-2xl"
-          />
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
-              onClick={() => window.open(scource_code_link, "_blank")}
-              className="balck-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-            >
-              <img
-                src={github}
-                alt="github"
-                className="w-1/2 h-1/2 object-contain"
-              />
+        <div>
+          <div className="relative w-full h-[220px] rounded-xl overflow-hidden">
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+
+            <div className="absolute top-3 right-3 flex gap-2">
+              <div
+                onClick={() => window.open(source_code_link, "_blank")}
+                className="black-gradient w-9 h-9 rounded-full flex justify-center items-center cursor-pointer border border-white/20 hover:border-[#00d8ff] transition-colors"
+                title="View Source Code / Live App"
+              >
+                <img
+                  src={github}
+                  alt="github"
+                  className="w-1/2 h-1/2 object-contain"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="mt-5">
-          <h3 className="text-white font-bold test-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary test-[14px]">{description}</p>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-              #{tag.name}
+
+          <div className="mt-4">
+            <h3 className="text-white font-bold text-[20px] leading-tight group-hover:text-[#00d8ff] transition-colors">
+              {name}
+            </h3>
+            <p className="mt-2 text-secondary text-[14px] leading-relaxed">
+              {description}
             </p>
+          </div>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag.name}
+              className={`text-[12px] font-mono px-2.5 py-1 rounded-md bg-black-100/80 border border-white/5 ${tag.color}`}
+            >
+              #{tag.name}
+            </span>
           ))}
         </div>
       </Tilt>
@@ -67,28 +82,30 @@ const Works = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-center`}>My Work</p>
-        <h2 className={`${styles.sectionHeadText} text-center`}>Projects.</h2>
+        <p className={`${styles.sectionSubText} text-center`}>
+          Enterprise & Full Stack Deliverables
+        </p>
+        <h2 className={`${styles.sectionHeadText} text-center`}>
+          Major Projects.
+        </h2>
       </motion.div>
+
       <div className="w-full flex">
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
-          className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px] text-center mx-auto"
+          className="mt-4 text-secondary text-[16px] max-w-3xl leading-[28px] text-center mx-auto"
         >
-          Explore my ASP.NET projects—a collection of real-world solutions that
-          showcase my passion for problem-solving, adaptability with diverse
-          technologies, and strength in leading projects from concept to
-          completion.
+          Explore my core project portfolio including enterprise Hospital Management Information Systems (HMIS), Call Audit Management System with Audio APIs & AG Grid, ASP.NET Core REST APIs, and full stack React/Node.js web applications.
         </motion.p>
       </div>
 
-      <div className="mt-20 flex flex-wrap gap-7">
+      <div className="mt-16 flex flex-wrap justify-center gap-7">
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} {...project} />
+          <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}
       </div>
     </>
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");
